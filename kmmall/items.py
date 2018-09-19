@@ -26,6 +26,7 @@ class KmmallItem(scrapy.Item):
     three_url = scrapy.Field()
     # 商品主标题
     title = scrapy.Field()
+    # 商品url
     goods_url = scrapy.Field()
     # 售价
     price = scrapy.Field()
@@ -37,8 +38,10 @@ class KmmallItem(scrapy.Item):
     spec = scrapy.Field()
     # 评论数
     count_comment = scrapy.Field()
+    # 以下都是detail-list里面的li,不一定是简介，每个商品顺序不一致
     # 商品简介
     goods_name = scrapy.Field()
+    # 商品编号
     goods_no = scrapy.Field()
     # 批准文号
     goods_pz = scrapy.Field()

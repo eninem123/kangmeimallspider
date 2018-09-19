@@ -6,7 +6,7 @@
 dist
 build
 .idea
-
+*.csv
 # Windows:
 Thumbs.db
 ehthumbs.db

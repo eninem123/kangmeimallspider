@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from selenium import webdriver
 from kmmall.items import KmmallItem
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -26,7 +25,7 @@ class KmspiderSpider(scrapy.Spider):
         two = response.xpath("/html/body/div[3]/span[1]/a[1]/text()").extract_first()
         two_path = response.xpath("/html/body/div[3]/span[1]/a[1]/@href").extract_first()
         three_path = response.xpath("/html/body/div[3]/span[2]/a[1]/@href").extract_first()
-        # 有些Ｎonetype没数据的url,如果不设置成字符串无法拼接，调度器会忽略这些url不保存
+        # 有些Nonetype没数据的url,如果不设置成字符串无法拼接，调度器会忽略这些url不保存
         if two_path or three_path is not str:
             two_path = str(two_path)
             three_path = str(three_path)
@@ -60,8 +59,10 @@ class KmspiderSpider(scrapy.Spider):
     def parse_three(self, response):
         print("parse_three in*****************************")
         item = KmmallItem()
+        # 用selenium爬评论数，scrapy的xpath无法获取
         # 创建Options对象
         options = Options()
+        # 设置无界面
         options.set_headless()
         # 创建Chrome的驱动对象
         driver = webdriver.Chrome(options=options)
@@ -73,7 +74,7 @@ class KmspiderSpider(scrapy.Spider):
             print(e)
             print("item['count_comment']:", item)
             item['count_comment'] =None
-        time.sleep(0.1)
+        time.sleep(2)
 
         # 退出浏览器
         driver.quit()

@@ -2,7 +2,9 @@
 import scrapy
 from selenium import webdriver
 from kmmall.items import KmmallItem
-
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import time
 
 class KmspiderSpider(scrapy.Spider):
     name = 'kmspider'
@@ -58,15 +60,23 @@ class KmspiderSpider(scrapy.Spider):
     def parse_three(self, response):
         print("parse_three in*****************************")
         item = KmmallItem()
-        # driver = webdriver.Chrome()
-        # driver.get(response.url)
-        # try:
-        #     item['count_comment']=driver.find_elements_by_xpath("//div[contains(@class,'list-info')]/ul/li[6]//label").text
-        #     print("item['count_comment']:",item['count_comment'])
-        # except Exception as e:
-        #     print(e)
-        #     print("item['count_comment']:", item)
-        #     item['count_comment'] =None
+        # 创建Options对象
+        options = Options()
+        options.set_headless()
+        # 创建Chrome的驱动对象
+        driver = webdriver.Chrome(options=options)
+        driver.get(response.url)
+        try:
+            item['count_comment']=driver.find_element_by_id("countComment").text
+            print("item['count_comment']:", item)
+        except Exception as e:
+            print(e)
+            print("item['count_comment']:", item)
+            item['count_comment'] =None
+        time.sleep(0.1)
+
+        # 退出浏览器
+        driver.quit()
         # 调用管道Item
 
         node=response.xpath("//div[@class='product-intro']")
@@ -81,7 +91,7 @@ class KmspiderSpider(scrapy.Spider):
         item['price'] = node.xpath("./div[2]/div[2]/div[1]/ul[1]/li[3]//label/text()").extract_first()
         item['market_price'] = node.xpath("./div[2]/div[2]/div[1]/ul[1]/li[4]//del/text()").extract_first()
         item['spec'] = node.xpath("./div[2]/div[2]/div[1]/ul[1]/li[7]/dd/a/text()").extract_first()
-        item['count_comment'] = response.xpath("//div[contains(@class,'list-info')]/ul/li[6]//label").extract_first()
+        # item['count_comment'] = response.xpath("//div[contains(@class,'list-info')]/ul/li[6]//label").extract_first()
         item['goods_name'] = response.xpath("//ul[@class='detail-list']/li[1]/text()").extract_first()
         item['goods_no'] = response.xpath("//ul[@class='detail-list']/li[2]/text()").extract_first()
         item['goods_pz'] = response.xpath("//ul[@class='detail-list']/li[3]/text()").extract_first()

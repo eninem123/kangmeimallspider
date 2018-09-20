@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Define here the models for your scraped items
-# 偶伦，我是老谭fff
+# 偶伦
 # See docmentation in:
 # https://doc.scrapy.org/en/latest/topics/items.html
 

@@ -23,7 +23,7 @@ incremental==17.5.0
 itsdangerous==0.24
 jieba==0.38
 kombu==4.0.2
-lxml==4.2.1
+lxml==4.6.5
 mutagen==1.38
 olefile==0.44
 packaging==16.8

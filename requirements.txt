@@ -49,7 +49,7 @@ scrapyd==1.2.0
 selenium==3.12.0
 service-identity==17.0.0
 six==1.10.0
-Twisted==18.4.0
+Twisted==22.4.0
 urllib3==1.22
 uWSGI==2.0.17
 vine==1.1.3
